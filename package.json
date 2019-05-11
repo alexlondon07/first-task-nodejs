@@ -1,0 +1,14 @@
+{
+  "name": "first-task",
+  "version": "1.0.0",
+  "description": "Primer entregable del curso Fundamentos de Node Js - Tecnologico de Antioquia",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "NodeJs"
+  ],
+  "author": "Alexander Andres Londoño Espejo",
+  "license": "ISC"
+}
