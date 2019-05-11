@@ -15,13 +15,12 @@ const create = ( name, duration, value ) => {
     let course = {
         id: shortid.generate(),
         name,
-        duration: 1,
-        value: 2
+        duration,
+        value
     }
 
     listCourses.push( course );
     saveDB();
-    //return listCourses;
     return course;
 }
 
