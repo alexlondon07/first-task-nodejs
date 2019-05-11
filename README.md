@@ -37,6 +37,9 @@ Response to create a new course:
 
 -l: command to get all courses 
 
+Example:
+node app.js list 
+
 ```
 
 ## Alexander Andrés Londoño Espejo
