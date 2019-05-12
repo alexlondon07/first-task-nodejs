@@ -4,6 +4,17 @@ const shortid = require('shortid');
 let listCourses = [];
 
 /**
+ * Metodo para cargar los curos guardados previamente
+ */
+const loadDB = () => {
+    try {
+        listCourses = require('../db/data.json');
+    } catch (error) {
+        listCourses = [];
+    }
+}
+
+/**
  * Metodo para crear la Información de un curso
  * @param {*} name 
  * @param {*} duration 
@@ -42,17 +53,27 @@ const saveDB = () => {
         if ( err ) throw new Error('El curso no pudo ser guardado')
     }); 
 }
-
-const loadDB = () => {
+/**
+ * Metodo para buscar un curso especifico 
+ * @param {*} id Identifificador del curso
+ */
+const searchById = ( id ) => {
     try {
-        listCourses = require('../db/data.json');
+        loadDB();
+        let courseResponse =  listCourses.filter(function(course) {
+            return course.id == id;
+        });
+        return courseResponse;
+
     } catch (error) {
-        listCourses = [];
+        throw new Error(`Error, bucando el curso con id: ${id}`)
     }
+
 }
 
 module.exports = {
     create,
     saveDB,
-    getAllCourses
+    getAllCourses,
+    searchById
 }

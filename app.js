@@ -5,13 +5,13 @@ const course  = require('./course/course');
 let command = argv._[0];
 
 function showData(element) {
-    console.log('ENTRE');
     console.table(element);
 }
+
 switch ( command ){
     case 'create':
-        let task = course.create( argv.name, argv.duration, argv.value );
-        console.log( task );
+        let response = course.create( argv.name, argv.duration, argv.value );
+        console.log( response );
         break;
 
     case 'list':
@@ -23,6 +23,16 @@ switch ( command ){
                 setTimeout(showData, 2000, element);
             })();
         });       
+        break;
+
+    case 'search':
+        let data = course.searchById(argv.id);
+        if( data.id ){
+            console.log('================= Course =========='.red); 
+            console.table(data);
+        }else{
+            console.log(`Course with id ${argv.id} no found `.red)
+        }
         break;
 
     default:
