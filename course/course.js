@@ -60,11 +60,9 @@ const saveDB = () => {
 const searchById = ( id ) => {
     try {
         loadDB();
-        let courseResponse =  listCourses.filter(function(course) {
-            return course.id == id;
-        });
+        let courseResponse = listCourses.find( course => course.id == id)
         return courseResponse;
-
+        
     } catch (error) {
         throw new Error(`Error, bucando el curso con id: ${id}`)
     }

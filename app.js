@@ -3,9 +3,18 @@ const colors = require('colors');
 const course  = require('./course/course');
 
 let command = argv._[0];
+let TIME_INTERVAL = 2000;
 
-function showData(element) {
-    console.table(element);
+/**
+ * Metodo que imprime la información de cada curso segun n tiempo
+ */
+function coursesWithTimer(items, index = 0) {
+    console.log('================= List courses =========='.red); 
+    setTimeout(() => {
+        const item = items[index]
+        console.table(item)
+        if (items[index + 1]) coursesWithTimer(items, index + 1)
+    }, TIME_INTERVAL );
 }
 
 switch ( command ){
@@ -17,17 +26,12 @@ switch ( command ){
     case 'list':
         
         let listCourses = course.getAllCourses();
-        console.log('================= List courses =========='.red); 
-        listCourses.forEach(element => {
-            (function(){
-                setTimeout(showData, 2000, element);
-            })();
-        });       
+        coursesWithTimer( listCourses );    
         break;
 
     case 'search':
         let data = course.searchById(argv.id);
-        if( data.id ){
+        if( data ){
             console.log('================= Course =========='.red); 
             console.table(data);
         }else{
