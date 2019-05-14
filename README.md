@@ -114,6 +114,47 @@ OR
 Course with id Kj-0y9pM-99 no found 
 
 
+##  Usage to Register a student to an course
 
+```python
+
+Commands required
+
+-idCourse:  idCourse course
+-name:      Name student
+-doc:       Doc student
+-reg:       Register (true/false)
+
+
+Example with --reg=false:
+
+node app.js register --idCourse="Kj-0y9pM-" --name "Alexander Londoño Espejo" --doc="12356" --reg=false
+
+Response:
+List all courses
+
+
+
+Example with --reg=true, Command to register an student to course:
+
+node app.js register --idCourse="Kj-0y9pM-" --name "Alexander Londoño Espejo" --doc="12356" --reg=true
+
+
+Response:
+================= Student enrolled =================
+┌──────────┬────────────────────────────┐
+│ (index)  │           Values           │
+├──────────┼────────────────────────────┤
+│ idCourse │        'Kj-0y9pM-'         │
+│   name   │ 'Alexander Londoño Espejo' │
+│   doc    │           12356            │
+
+OR
+
+When the ide course not exists: 
+
+Course with id Kj-0y9pM-11 no exists 
+
+```
 
 ## Alexander Andrés Londoño Espejo

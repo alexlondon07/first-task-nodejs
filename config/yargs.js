@@ -26,6 +26,29 @@ const argv = require('yargs')
     .command('list', 'List courses',{
         
     })
+    .command('register', 'Register student to a course',{
+        idCourse: {
+            demand: true,
+            alias: 'id',
+            desc: 'idCourse course'
+        },
+        name: {
+            demand: true,
+            alias: 'n',
+            desc: 'Name student'
+        },
+        doc: {
+            demand: true,
+            alias: 'doc',
+            desc: 'Doc student'
+        },
+        reg: {
+            demand: true,
+            alias: 'reg',
+            desc: 'Register',
+            defaul: true
+        }
+    })
     .help()
     .argv;
 
