@@ -1,9 +1,25 @@
 const argv = require('./config/yargs').argv;
 const colors = require('colors');
 const course  = require('./course/course');
+var express = require('express');
+const hbs = require('hbs');
+const port = process.env.PORT || 3000;
+
+var app = express();
+
+app.use(express.static(__dirname + '/public'));
+
+// Express HBS engine
+hbs.registerPartials(__dirname + '/views/partials');
+app.set('view engine', 'hbs');
+
+app.get('/', (req, res) => {
+    res.render('home', {
+        name: 'Alexander Londoño'
+    });
+});
 
 let command = argv._[0];
-
 switch ( command ){
     
     case 'create':
@@ -48,3 +64,9 @@ switch ( command ){
     default:
     console.log('Command no found'.red);
 }
+
+
+app.listen(port, function () {
+    console.log(`Example app listening on port ${port}!`);
+});
+
