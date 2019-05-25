@@ -13,11 +13,6 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
-app.get('/', (req, res) => {
-    res.render('home', {
-        name: 'Alexander Londoño'
-    });
-});
 
 let command = argv._[0];
 switch ( command ){
@@ -28,12 +23,21 @@ switch ( command ){
         break;
 
     case 'list':
-        let listCourses = course.getAllCourses();
+        let listCourses = course.getAllCourses(); 
         if(listCourses.length > 0 ){
             course.coursesWithTimer( listCourses );
         }else{
             console.log(`The list courses is empty `.red)
         }
+
+        app.get('/', (req, res) => {
+            let obj = course.getAllCourses();
+            res.render('home', {
+                name: 'Alexander Londoño',
+                courses: obj
+            });
+        });
+
         break;
 
     case 'search':
@@ -66,7 +70,8 @@ switch ( command ){
 }
 
 
+
 app.listen(port, function () {
-    console.log(`Example app listening on port ${port}!`);
+    console.log(`App listening on port ${port}!`);
 });
 

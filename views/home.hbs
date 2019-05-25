@@ -3,27 +3,30 @@
 {{> navbar }}
 
 <div class="jumbotron" style="padding:40px;">
-    <h1>Hello! I´m {{ name }}</h1>
+    <h2>Hello! I´m {{ name }}</h2>
     <h4>
-        Courses list 
+        <span class="label label-primary">Courses list</span>
     </h4>
-    <table class="table .table-hover">
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        <tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
-        <table>
+    <table class="table table-hover">
+        <thead class="black white-text">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.duration}} MIN</td>
+                    <td>$ {{this.value}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </div>
 
 {{> footer }}

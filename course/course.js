@@ -102,7 +102,6 @@ const register = ( idCourse, name, doc, register ) => {
  * Metodo que imprime la información de cada curso segun n tiempo
  */
 function coursesWithTimer(items, index = 0) {
-    console.log('================= List courses =========='.red); 
     setTimeout(() => {
         const item = items[index]
         console.table(item)
