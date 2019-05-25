@@ -25,19 +25,19 @@ switch ( command ){
     case 'list':
         let listCourses = course.getAllCourses(); 
         if(listCourses.length > 0 ){
+
+            app.get('/', (req, res) => {
+                res.render('home', {
+                    name: 'Alexander Londoño',
+                    courses: listCourses
+                });
+            });
+
             course.coursesWithTimer( listCourses );
+
         }else{
             console.log(`The list courses is empty `.red)
         }
-
-        app.get('/', (req, res) => {
-            let obj = course.getAllCourses();
-            res.render('home', {
-                name: 'Alexander Londoño',
-                courses: obj
-            });
-        });
-
         break;
 
     case 'search':
