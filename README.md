@@ -172,15 +172,13 @@ Response:
 
 App listening on port 3000!
 
+```
+
 
 We need to write in the browser:
-
 
 [Localhost](http://localhost:3000/)
 
 
 ![alt text](https://raw.githubusercontent.com/alexlondon07/first-task-nodejs/master/public/images/table.png "Courses list")
-
-```
-
 ## Alexander Andrés Londoño Espejo
