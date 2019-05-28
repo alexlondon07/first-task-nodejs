@@ -165,7 +165,7 @@ Course with id Kj-0y9pM-11 no exists
 
 Command
 
-node app.js list
+node app.js
 
 
 Response:

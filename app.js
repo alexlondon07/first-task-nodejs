@@ -25,16 +25,7 @@ switch ( command ){
     case 'list':
         let listCourses = course.getAllCourses(); 
         if(listCourses.length > 0 ){
-
-            app.get('/', (req, res) => {
-                res.render('home', {
-                    name: 'Alexander Londoño',
-                    courses: listCourses
-                });
-            });
-
             course.coursesWithTimer( listCourses );
-
         }else{
             console.log(`The list courses is empty `.red)
         }
@@ -69,6 +60,13 @@ switch ( command ){
     console.log('Command no found'.red);
 }
 
+var courseList = course.getAllCourses(); 
+app.get('/', (req, res) => {
+    res.render('home', {
+        name: 'Alexander Londoño',
+        courses: courseList
+    });
+});
 
 
 app.listen(port, function () {
