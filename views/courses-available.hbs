@@ -3,10 +3,7 @@
 {{> navbar }}
 
 <div class="jumbotron" style="padding:40px;">
-    <h2>Hello! I´m {{ name }} the administrator</h2>
-    <h4>
-        <span class="label label-primary">Courses list</span>
-    </h4>
+    <h2>Courses avaliable</h2>
     <table class="table table-hover">
         <thead class="black white-text">
             <tr>
@@ -21,15 +18,17 @@
         </thead>
         <tbody>
             {{#each courses}}
-                <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.description}}</td>
-                    <td>{{this.modality}}</td>
-                    <td>{{this.duration}} Hours</td>
-                    <td>$ {{this.value}}</td>
-                    <td>{{this.status}}</td>
-                </tr>
+                {{#ifEquals this.status 'enable'}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.modality}}</td>
+                        <td>{{this.duration}} Hours</td>
+                        <td>$ {{this.value}}</td>
+                        <td>{{this.status}}</td>
+                    </tr>
+                {{/ifEquals}}
             {{/each}}
         </tbody>
     </table>

@@ -3,6 +3,8 @@ const colors = require('colors');
 const course  = require('./course/course');
 var express = require('express');
 const hbs = require('hbs');
+const bodyParser = require('body-parser');
+
 const port = process.env.PORT || 3000;
 
 var app = express();
@@ -12,6 +14,10 @@ app.use(express.static(__dirname + '/public'));
 // Express HBS engine
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
+
+//Body Parser
+app.use(bodyParser.urlencoded({extended:false}));
+
 
 
 let command = argv._[0];
@@ -64,6 +70,43 @@ var courseList = course.getAllCourses();
 app.get('/', (req, res) => {
     res.render('home', {
         name: 'Alexander Londoño',
+        courses: courseList
+    });
+});
+
+app.get('/course', (req, res) => {
+    res.render('course-form', {
+        title: 'New course',
+    });
+});
+
+/**
+ * Register course
+ */
+app.post('/course-register', (req, res) => {
+    
+    let courseData = {
+        name: req.body.name,
+        description: req.body.description,
+        modality: req.body.modality,
+        duration: req.body.duration,
+        value: req.body.value,
+        status: req.body.status
+    }
+    let response = course.create( courseData );
+    if(response){
+        res.render('course-form', {
+            title: 'New course',
+            response: 'Course entered correctly',
+        });
+    }
+});
+
+/**
+ * Courses availables
+ */
+app.get('/courses-available', (req, res) => {
+    res.render('courses-available', {
         courses: courseList
     });
 });

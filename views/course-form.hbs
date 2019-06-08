@@ -1,0 +1,48 @@
+{{> head }}
+
+{{> navbar }}
+
+<div class="jumbotron" style="padding:40px;">
+    <h2>{{ title }}</h2>
+</div>
+
+<span class="label label-success">{{ response }}</span>
+
+
+<div class="container">
+    <form action="/course-register" method="post">
+        <div class="form-group">
+            <label for="name">Name course:</label>
+            <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" name="description" required>
+        </div>
+        <div class="form-group">
+            <label for="modality">Modality course:</label>
+            <select class="form-control" name="modality">
+                <option value="niguna">Ninguna</option>
+                <option value="virtual">Virtual</option>
+                <option value="presencial">Presencial</option>
+            </select>
+        </div> 
+        <div class="form-group">
+            <label for="duration">Hourly intensity:</label>
+            <input type="number" class="form-control" name="duration" required>
+        </div>
+        <div class="form-group">
+            <label for="value">Value:</label>
+            <input type="number" class="form-control" name="value" required>
+        </div>
+        <div class="form-group">
+            <label for="status">Status course:</label>
+            <select class="form-control" name="status">
+                <option value="enable">Enable</option>
+                <option value="closed">Closed</option>
+                <option value="canceled">Canceled</option>
+            </select>
+        </div> 
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

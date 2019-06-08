@@ -19,17 +19,18 @@ const loadDB = () => {
 /**
  * Metodo para crear la Información de un curso
  * @param {*} name 
- * @param {*} duration 
- * @param {*} value 
  */
-const create = ( name, duration, value ) => {
+const create = ( data ) => {
     loadDB();
     
     let course = {
         id: shortid.generate(),
-        name,
-        duration,
-        value
+        name: data.name,
+        description: data.description,
+        duration: data.duration,
+        value: data.value,
+        modality:data.modality,
+        status: data.status
     }
 
     listCourses.push( course );
