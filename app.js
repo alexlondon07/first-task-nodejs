@@ -106,8 +106,11 @@ app.post('/course-register', (req, res) => {
  * Courses availables
  */
 app.get('/courses-available', (req, res) => {
+    let courseListAvailable = courseList.filter(val => {
+        return val.status == "enable";
+    });
     res.render('courses-available', {
-        courses: courseList
+        courses: courseListAvailable
     });
 });
 

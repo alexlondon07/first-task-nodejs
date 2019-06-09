@@ -18,7 +18,6 @@
         </thead>
         <tbody>
             {{#each courses}}
-                {{#ifEquals this.status 'enable'}}
                     <tr>
                         <td>{{this.id}}</td>
                         <td>{{this.name}}</td>
@@ -28,7 +27,6 @@
                         <td>$ {{this.value}}</td>
                         <td>{{this.status}}</td>
                     </tr>
-                {{/ifEquals}}
             {{/each}}
         </tbody>
     </table>
