@@ -172,6 +172,6 @@ app.get('/courses-available', (req, res) => {
 
 
 app.listen(port, function () {
-    console.log(`App listening on port ${port}!`);
+    console.log(`App listening on http://localhost:${port}`);
 });
 
