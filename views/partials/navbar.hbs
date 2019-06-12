@@ -1,8 +1,30 @@
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
-        <a class="active navbar-brand" href="/">Courses list </a>
+    
+ {{#if datosLogin.perfilBool }}
+  <a class="active navbar-brand" href="/home-list">Courses list </a>
         <a class="active navbar-brand" href="/course">Register Course </a>
         <a class="active navbar-brand" href="/courses-available">Courses available</a>
+        <a class="active navbar-brand" href="/courses-available">Courses by Aspirant</a>
+     	<a class="active navbar-brand" href="/create-login">Create user</a>
         <ul class="nav navbar-nav"></ul>
+     	
+{{else}}
+	<a class="active navbar-brand" href="/courses-available">Courses available</a>
+	<a class="active navbar-brand" href="/courses-available">My incription</a>
+	<ul class="nav navbar-nav"></ul>
+{{/if}}
+
+
+
+
     </div>
 </nav>
+<div class ="container">
+	<div class ="row">
+<h3>Info login:</h3>
+    <div>Perfil: {{ datosLogin.perfil }}</div>
+     <div>Nombre: {{ datosLogin.nombre }}</div>
+ </div>
+ </div>
+

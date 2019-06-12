@@ -1,13 +1,21 @@
-const argv = require('./config/yargs').argv;
+const login = require('./login/login.js');
 const colors = require('colors');
 const course  = require('./course/course');
+const JSAlert = require("js-alert");
 var express = require('express');
+const session = require('express-session');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT || 3000;
 
 var app = express();
+
+app.use(session({secret: 'actividad2'}));
+var sess;
+let perfilUser; 
+
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -18,72 +26,71 @@ app.set('view engine', 'hbs');
 //Body Parser
 app.use(bodyParser.urlencoded({extended:false}));
 
-
-
-let command = argv._[0];
-switch ( command ){
-    
-    case 'create':
-        let response = course.create( argv.name, argv.duration, argv.value );
-        console.log( response );
-        break;
-
-    case 'list':
-        let listCourses = course.getAllCourses(); 
-        if(listCourses.length > 0 ){
-            course.coursesWithTimer( listCourses );
-        }else{
-            console.log(`The list courses is empty `.red)
-        }
-        break;
-
-    case 'search':
-        let data = course.searchById(argv.id);
-        if( data ){
-            console.log('================= Course ================='.red); 
-            console.table(data);
-        }else{
-            console.log(`Course with id ${argv.id} no found `.red)
-        }
-        break;
-
-    case 'register':
-
-        if(argv.reg == 'false'){
-            let listCourses = course.getAllCourses();
-            course.coursesWithTimer( listCourses );  
-            break;
-        }
-
-        let register = course.register( argv.idCourse, argv.name, argv.doc, argv.reg );
-        if (register){
-            console.log('================= Student enrolled ================='.red); 
-            console.table(register);
-        }
-        break;
-
-    default:
-    console.log('Command no found'.red);
-}
-
 var courseList = course.getAllCourses(); 
-app.get('/', (req, res) => {
-    res.render('home', {
+app.get('/home-list', (req, res) => {
+    res.render('home-list', {
         name: 'Alexander Londoño',
-        courses: courseList
+        courses: courseList,
+        datosLogin:sess.login,
+    });
+});
+
+app.get('/', (req, res) => {
+    res.render('index', {
+        tituloWeb: 'App Matriculas cursos'
     });
 });
 
 app.get('/course', (req, res) => {
+        console.log( 'course\n')
+    console.log( sess)
     res.render('course-form', {
         title: 'New course',
+         datosLogin:sess.login,
     });
 });
+
+app.get('/create-login', (req, res) => {
+    res.render('create-login', {
+        tituloWeb: 'Crear usuarios',
+    });
+});
+
+/**
+ * Register login
+ */
+app.post('/create-login-action', (req, res) => {
+    
+    let loginData = {
+        nombre: req.body.nameUser,
+        doc: req.body.doc,
+        tel: req.body.tel,
+        user: req.body.user,
+        pwd: req.body.pwd,
+        perfil: req.body.perfil,
+    }
+    let response = login.createLogin( loginData );
+    if(response != null){
+        res.render('index', {
+            tituloWeb: 'App Matriculas cursos',
+            msgNotificationGreen: 'El usuario '+loginData.nombre+' se ha creado de forma correcta por favor inicia session',
+        });
+    }else{
+         res.render('create-login', {
+            tituloWeb: 'App Matriculas cursos',
+            msgNotification: 'El usuario que intentas crear ya existe en base de datos',
+        });
+
+    }
+});
+
 
 /**
  * Register course
  */
 app.post('/course-register', (req, res) => {
+    console.log( 'course-register\n')
+    console.log(sess)
     
     let courseData = {
         name: req.body.name,
@@ -98,8 +105,56 @@ app.post('/course-register', (req, res) => {
         res.render('course-form', {
             title: 'New course',
             response: 'Course entered correctly',
+            datosLogin:sess.login,
         });
     }
+});
+
+
+
+
+
+
+app.post('/login', (req, res) => {
+    
+    let loginO = {
+        user: req.body.user,
+        pwd: req.body.pwd
+       
+    }
+    let response = login.buscarLogin( loginO );
+        sess = req.session;
+        
+        sess.login = response;
+        if(response != null){
+            if(response.perfil == 'admin'){
+           response.perfilBool = true;
+            res.render('home-list', {
+                courses: courseList,
+                 name: sess.login.nombre,
+                title: 'New course',
+                response: 'Course entered correctly',
+                datosLogin:sess.login,
+            });
+        }else{
+            response.perfilBool = false;
+              let courseListAvailable = courseList.filter(val => {
+                return val.status == "enable";
+            });
+            res.render('courses-available', {
+                courses: courseListAvailable,
+                 datosLogin:sess.login,
+            });
+        }
+           
+        }else{
+            res.render('index', {
+                tituloWeb: 'App Matriculas cursos',
+                msgNotification: 'Tus datos no son correctos',
+            });
+
+        }
+   
 });
 
 /**
@@ -110,12 +165,13 @@ app.get('/courses-available', (req, res) => {
         return val.status == "enable";
     });
     res.render('courses-available', {
-        courses: courseListAvailable
+        courses: courseListAvailable,
+         datosLogin:sess.login,
     });
 });
 
 
 app.listen(port, function () {
-    console.log(`App listening on port http://localhost:${port}!`);
+    console.log(`App listening on port ${port}!`);
 });
 
