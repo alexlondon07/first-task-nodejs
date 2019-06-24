@@ -1,0 +1,37 @@
+{{> head }}
+
+{{> navbar }}
+
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+
+<div class="jumbotron" style="padding:40px;">
+    <h2>{{ tituloWeb }}</h2>
+
+    <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="images/hola-mundo-nodejs.png" id="icon" alt="User Icon" /><br />
+    </div>
+
+    <!-- Login Form -->
+    <form action="/create-login-action" method = "post">
+		<input type="text" class="fadeIn second" name="nameUser" placeholder="Nombre completo del usuario">
+    <input type="text" class="fadeIn second" name="doc" placeholder="Documento de identidad">
+    <input type="text" class="fadeIn second" name="tel" placeholder="Telefono">
+		<input type="text" id="login" class="fadeIn second" name="user" placeholder="Usuario">
+		<input type="password" id="password" class="fadeIn third" name="pwd" placeholder="Contraseña">
+		<select class="fadeIn second" name ="perfil">
+			<option value="aspirante">Estudiante</option>
+		</select>
+      	<input type="submit" class="fadeIn fourth" value="Crear usuarios">
+    </form>
+     <div id="formFooter">
+      <span style="color:red">{{ msgNotification }}</span>
+      <span style="color:green">{{ msgNotificationGreen }}</span>
+    </div>
+  </div>
+</div>
+</div>

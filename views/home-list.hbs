@@ -2,8 +2,10 @@
 
 {{> navbar }}
 
+
+
 <div class="jumbotron" style="padding:40px;">
-    <h2>Hello! I´m {{ name }}</h2>
+    <h2>Hello! I´m {{ name }} the administrator</h2>
     <h4>
         <span class="label label-primary">Courses list</span>
     </h4>
@@ -12,8 +14,11 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Modality</th>
                 <th scope="col">Duration</th>
                 <th scope="col">Value</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -21,12 +26,13 @@
                 <tr>
                     <td>{{this.id}}</td>
                     <td>{{this.name}}</td>
-                    <td>{{this.duration}} MIN</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.modality}}</td>
+                    <td>{{this.duration}} Hours</td>
                     <td>$ {{this.value}}</td>
+                    <td>{{this.status}}</td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
-
-{{> footer }}
